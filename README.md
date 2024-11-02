@@ -16,15 +16,15 @@
 
 ### Section 01 to Section 09 - basics of typescript
 
-- [Section 01 - Getting started with TypeScript](#section-01-getting-started-with-typescript)
-- [Section 02 - What is a Type System](#section-02-what-is-a-type-system)
-- [Section 03 - Type Annotations in Action](#section-03-type-annotations-in-action)
-- [Section 04 - Annotations with Functions and Objects](#section-04-annotations-with-functions-and-objects)
-- [Section 05 - Mastering Typed Arrays](#section-05-mastering-typed-arrays)
-- [Section 06 - Tuples in TypeScript](#section-06-tuples-in-typescript)
-- [Section 07 - The All Important Interface](#section-07-the-all-important-interface)
-- [Section 08 - Building Functionality with Classes](#section-08-building-functionality-with-classes)
-- [Section 09 - Design Patterns with TypeScript](#section-09-design-patterns-with-typescript)
+- [Section 01 - Getting started with TypeScript](#section-01---getting-started-with-typescript)
+- [Section 02 - What is a Type System](#section-02---what-is-a-type-system)
+- [Section 03 - Type Annotations in Action](#section-03---type-annotations-in-action)
+- [Section 04 - Annotations with Functions and Objects](#section-04---annotations-with-functions-and-objects)
+- [Section 05 - Mastering Typed Arrays](#section-05---mastering-typed-arrays)
+- [Section 06 - Tuples in TypeScript](#section-06---tuples-in-typescript)
+- [Section 07 - The All Important Interface](#section-07---the-all-important-interface)
+- [Section 08 - Building Functionality with Classes](#section-08---building-functionality-with-classes)
+- [Section 09 - Design Patterns with TypeScript](#section-09---design-patterns-with-typescript)
 
 ---
 
@@ -81,7 +81,7 @@
 
 7. A First App (5min)
 
-- see notes: [typescript-stephengrider-typescript-complete-developers-guide](https://github.com/clarklindev/typescript-stephengrider-typescript-complete-developers-guide/tree/master/tutorial-stephengrider-typescript-01-basic-example)
+- see [/tutorial-stephengrider-typescript-01-basic-example](./tutorial-stephengrider-typescript-01-basic-example/README.md)
 
 8. Executing Typescript Code (5min)
 9. One Quick Change (4min)
