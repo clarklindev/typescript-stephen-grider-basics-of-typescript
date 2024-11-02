@@ -7,6 +7,7 @@
 - this section is also covered in courses:
   - [microservices-with-node-js-and-react](https://www.udemy.com/course/microservices-with-node-js-and-react/) - section 25: appendix B - basics of typescript
   - [typescript-the-complete-developers-guide](https://www.udemy.com/course/typescript-the-complete-developers-guide) - section 01 to section 09
+    - [my git repository](https://github.com/clarklindev/typescript-stephengrider-typescript-complete-developers-guide)
   - [react-and-typescript-build-a-portfolio-project](https://www.udemy.com/course/react-and-typescript-build-a-portfolio-project) - section 26: Appendix:Typescript
 
 ---
@@ -79,6 +80,9 @@
   - this fixes `Cannot use import statement outside a module` errors
 
 7. A First App (5min)
+
+- see notes: [typescript-stephengrider-typescript-complete-developers-guide](https://github.com/clarklindev/typescript-stephengrider-typescript-complete-developers-guide/tree/master/tutorial-stephengrider-typescript-01-basic-example)
+
 8. Executing Typescript Code (5min)
 9. One Quick Change (4min)
 10. Catching Errors with Typescript (7min)
