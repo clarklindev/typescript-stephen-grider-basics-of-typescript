@@ -1,16 +1,20 @@
 # Typescript - StephenGrider - Basics of Typescript
 
 ### NOTE: Section 01 to Section 09 - Basics of Typescript
+
 - Basics of Typescript -77 lessons (77 lessons (5h 41min))
 - NOTE: this section has been extracted to its own repository: [typescript-stephengrider-basics-of-typescript](https://github.com/clarklindev/typescript-stephengrider-basics-of-typescript)
 - this section is also covered in courses:
-  - [microservices-with-node-js-and-react](https://www.udemy.com/course/microservices-with-node-js-and-react/) - section 25: appendix B - basics of typescript  
+  - [microservices-with-node-js-and-react](https://www.udemy.com/course/microservices-with-node-js-and-react/) - section 25: appendix B - basics of typescript
   - [typescript-the-complete-developers-guide](https://www.udemy.com/course/typescript-the-complete-developers-guide) - section 01 to section 09
   - [react-and-typescript-build-a-portfolio-project](https://www.udemy.com/course/react-and-typescript-build-a-portfolio-project) - section 26: Appendix:Typescript
-  
+
 ---
+
 ## Table of contents
+
 ### Section 01 to Section 09 - basics of typescript
+
 - [Section 01 - Getting started with TypeScript](#section-01-getting-started-with-typescript)
 - [Section 02 - What is a Type System](#section-02-what-is-a-type-system)
 - [Section 03 - Type Annotations in Action](#section-03-type-annotations-in-action)
@@ -21,15 +25,59 @@
 - [Section 08 - Building Functionality with Classes](#section-08-building-functionality-with-classes)
 - [Section 09 - Design Patterns with TypeScript](#section-09-design-patterns-with-typescript)
 
---- 
+---
 
 ### Section 01 - getting started with typescript
+
 1. How to Get Help (1min)
+
+- @ste_grider
+- udemy Q&a
+
 2. Join Our Community! (1min)
 3. Course Resources (1min)
 4. Typescript Overview (6min)
+
+- adding a type-system
+- catch errors during development
+- adding 'type annotations'
+- no performance optimizations
+
+### running the code
+
+- typescript (js + annotations) -> typescript compiler -> js
+
 5. Environment Setup (8min)
+
+- install typescript compiler -> `npm install -g typescript ts-node`
+
+  - ts-node -> allows compile AND run code using single command
+  - `tsc --help`
+  - vscode typescript add-on
+  - install vs-code prettier
+  - add .prettierrc
+
+  ```.prettierrc
+  {
+  "tabWidth": 2,
+  "useTabs": false,
+  "printWidth": 80,
+  "semi": true,
+  "singleQuote": true,
+  "trailingComma": "es5"
+  }
+  ```
+
+  - enable format on save:
+    `CTRL + ,` -> search and enable 'Format On Save'
+
 6. Important Axios and TypeScript Version Information (1min)
+
+- when using latest axios need types: `npm install --save-dev @types/node`
+- TS 5.6 has breaking changes (ts-node not nsync)
+- install typscript v5.5 `npm install -g typescript@5.5`
+  - this fixes `Cannot use import statement outside a module` errors
+
 7. A First App (5min)
 8. Executing Typescript Code (5min)
 9. One Quick Change (4min)
@@ -37,6 +85,7 @@
 11. Catching More Errors! (5min)
 
 ### Section 02 - What is a type system
+
 12. Do Not Skip - Course Overview (4min)
 13. Types (5min)
 14. More on Types (6min)
@@ -44,6 +93,7 @@
 16. Where Do We Use Types? (1min)
 
 ### Section 03 - Type annotations in action
+
 17. Type Annotations and Inference (2min)
 18. Annotations with Variables (5min)
 19. Object Literal Annotations (7min)
@@ -55,6 +105,7 @@
 25. When Inference Doesn't Work (5min)
 
 ### Section 04 - Annotations with functions and objects
+
 26. More on Annotations Around Functions (5min)
 27. Inference Around Functions (6min)
 28. Annotations for Anonymous Functions (2min)
@@ -63,17 +114,20 @@
 31. Annotations Around Objects (7min)
 
 ### Section 05 - Mastering Typed Arrays
+
 32. Arrays in Typescript (5min)
 33. Why Typed Arrays? (5min)
 34. Multiple Types in Arrays (3min)
 35. When to Use Typed Arrays (1min)
 
 ### Section 06 - Tuples in Typescript
+
 36. Tuples in Typescript (4min)
 37. Tuples in Action (5min)
 38. Why Tuples? (3min)
 
 ### Section 07 - The all important interface
+
 39. Interfaces (1min)
 40. Long Type Annotations (5min)
 41. Fixing Long Annotations with Interfaces (5min)
@@ -83,6 +137,7 @@
 45. General Plan with Interfaces (3min)
 
 ### Section 08 - Building functionality with classes
+
 46. Classes (4min)
 47. Basic Inheritance (3min)
 48. Instance Method Modifiers (7min)
@@ -91,6 +146,7 @@
 51. Where to Use Classes (1min)
 
 ### Section 09 - Design Patterns with Typescript
+
 52. Updated Parcel Instructions (1min)
 53. App Overview (3min)
 54. Bundling with Parcel (5min)
