@@ -237,31 +237,6 @@ const logTodo = (id:number, title: string, completed:boolean) => {
 - Types - used by typescript compiler to analyze code for errors
 - Types - allow other devs to understand what data values are in the codebase
 
-## Features
-
-- TODO FEATURE: Make interfaces for axios response.data objects
-- TODO FEATURE: make use of 'as TYPE' to type some data to an interface
-- TODO FEATURE: give type annotations to function parameters ( parameters are what you can pass to a function and arguments are actually values passed in a function)
-- TODO FEATURE: Tuples (mutiple values(with different type - ONLY the values) for each entry in array) - no attributes, order is critical
-- TODO FEATURE: Type alias
-
-```ts
-type Drink = [string, boolean, number];
-
-//same as
-const pepsi: Drink;
-```
-
-## Notes
-
-- type annotation vs type inference
-  - same line initialization and assignment - value has automatic inference (typescript figures out whats the type)
-- 3 senarios for adding annotations
-
-  1. when function returns any type (eg. response from axios call / JSON.parse() etc when typescript cant figure out return type)
-  2. delayed initialization (when variable declaration and value assignment not on same line)
-  3. when inferance doesnt work - (eg. variable is reassigned a value with different type)
-
 15. Examples of Types (5min)
 
 - autocomplete once we assigned type as Date
@@ -285,29 +260,175 @@ const red = new Color();
 
 ## Section 03 - Type annotations in action
 
-### - array of type string:
+17. Type Annotations and Inference (2min)
+
+- type annotation -> code we add to let Typescript know what type of value a variable refers to
+- type inference -> typescript tries to figure out what type of value a variable refers to
+
+- `type annotations` AND `type inference` apply differently for:
+  - variables
+  - functions
+  - objects
+
+18. Annotations with Variables (5min)
+
+- annotation -> `:type`
 
 ```ts
-  let colors:string[] (string array)
+const apples: number = 5; //:number is an annotation
 ```
 
-### classes
+19. Object Literal Annotations (7min)
 
-- classes
-  ```ts
-  class Car {}
-  let car: Car = new Car();
-  ```
+### array type annotation:
 
-### Object literal
-
-- object literal
+- `string[]` an array of strings
+- `number[]` array of numbers
+- `boolean[]` array of booleans
 
 ```ts
+//Array
+let colors: string[] = ['red', 'green', 'blue']; //annotation: array of strings
+let numbers: number[] = [1, 2, 3];
+let booleans: bool[] = [true, false, false];
+```
+
+### classes type annotations:
+
+- `Car`'s type starts with capital (so its a class type)
+
+```ts
+//Class
+class Car {}
+let car: Car = new Car();
+```
+
+### object literal type annotations:
+
+- when the annotation is an object
+
+```ts
+//Object
 let point: { x: number; y: number } = {
   x: 20,
   y: 23,
 };
+```
+
+20. Annotations Around Functions (6min)
+
+- when the annotation type is a function.
+- function annotation -> the function annotation define the props it receives, and the return type
+
+```ts
+//function
+const logNumber: (i: number) => void = (i: number) => {
+  console.log(i);
+};
+```
+
+21. Understanding Inference (4min)
+
+- so if we remove the annotations, typescript infers the type -> meaning based on the value it determines the type.
+- when you make a variable (there is a left and right of equals sign)
+  - variable declaration -> left of =
+  - variable initialization -> right of =
+
+### automatic inference
+
+- automatic inference (typescript figures out whats the type) -> same line declaration and initialization
+- when do we use type inference?
+  - always use type inference
+
+```ts
+const color = 'red'; //automatic inference because declaration (left) and initialization (right) are on same line
+```
+
+### when do we add annotations?
+
+- 3 senarios for ADDING annotations:
+  - when function returns 'any' type and we need to clarify the type
+  - when we declare a variable on one line then initialize it later
+  - when we want a variable to have a type that cant be inferred
+
+22. senario: The 'Any' Type (8min)
+
+- when function returns `any` type
+- ie. response from axios call / `JSON.parse()` -> typescript cant figure out return type because JSON.parse() depends on input string value and can yield varying results/types.
+
+```ts
+const json = '{"x":10, "y":20}';
+const coordinates = JSON.parse(json); //coordinates has type `any`
+console.log(coordinates);
+```
+
+```cmd
+{x: 10, y:20}
+```
+
+23. Fixing the 'Any' Type (2min)
+
+```ts
+//...
+
+const coordinates: { x: number; y: number } = JSON.parse(json); //FIX by adding type
+
+//...
+```
+
+24. senario: Delayed Initialization (3min)
+
+- when we declare a variable on one line and initialize it later
+- when variable declaration and value assignment not on same line
+
+```ts
+let words = ['red', 'green', 'blue'];
+let foundWords: boolean; //fix by adding type annotation
+
+for (let i = 0; i < words.length; i++) {
+  if (words[i] === 'green') {
+    foundWord = true;
+  }
+}
+```
+
+25. senario: When Inference doesn't Work (5min)
+
+- eg. variable is reassigned a value with different type
+
+```ts
+let numbers = [-10, -1, 12];
+let numbersAboveZero: false | number = false; //FIX: we give it a type of either: false OR number
+
+for (let i = 0; i < numbers.length; i++) {
+  if (numbers[i] > 0) {
+    numbersAboveZero = numbers[i];
+  }
+}
+```
+
+## Section 04 - Annotations with functions and objects
+
+26. More on Annotations Around Functions (5min)
+27. Inference Around Functions (6min)
+28. Annotations for Anonymous Functions (2min)
+29. Void and Never (3min)
+30. Destructuring with Annotations (4min)
+31. Annotations Around Objects (7min)
+
+## Features
+
+- TODO FEATURE: Make interfaces for axios response.data objects
+- TODO FEATURE: make use of 'as TYPE' to type some data to an interface
+- TODO FEATURE: give type annotations to function parameters ( parameters are what you can pass to a function and arguments are actually values passed in a function)
+- TODO FEATURE: Tuples (mutiple values(with different type - ONLY the values) for each entry in array) - no attributes, order is critical
+- TODO FEATURE: Type alias
+
+```ts
+type Drink = [string, boolean, number];
+
+//same as
+const pepsi: Drink;
 ```
 
 ### Functions
@@ -337,25 +458,6 @@ axios.get(url).then((response) => {
   const todo = response.data as Todo; //TYPESCRIPT: as interface
 });
 ```
-
-17. Type Annotations and Inference (2min)
-18. Annotations with Variables (5min)
-19. Object Literal Annotations (7min)
-20. Annotations Around Functions (6min)
-21. Understanding Inference (4min)
-22. The 'Any' Type (8min)
-23. Fixing the 'Any' Type (2min)
-24. Delayed Initialization (3min)
-25. When Inference Doesn't Work (5min)
-
-## Section 04 - Annotations with functions and objects
-
-26. More on Annotations Around Functions (5min)
-27. Inference Around Functions (6min)
-28. Annotations for Anonymous Functions (2min)
-29. Void and Never (3min)
-30. Destructuring with Annotations (4min)
-31. Annotations Around Objects (7min)
 
 ## Section 05 - Mastering Typed Arrays
 
