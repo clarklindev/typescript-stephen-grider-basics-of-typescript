@@ -196,7 +196,7 @@ const logTodo = (id:number, title: string, completed:boolean) => {
 - error was the order of arguments passed in
   - FIX: give the arguments types so it picks up if wrong prop passed-in
 
-### Section 02 - What is a type system
+## Section 02 - What is a type system
 
 12. Do Not Skip - Course Overview (4min)
 
@@ -209,8 +209,8 @@ const logTodo = (id:number, title: string, completed:boolean) => {
 
 ### course goals
 
-- Syntax + features - understanding basic types in TS
-- Syntax + features - Function typing + annotations
+- Syntax + features - section 2 - understanding basic types in TS
+- Syntax + features - section 3 - Function typing + annotations
 - Syntax + features - Type definition files
 - Syntax + features - arrays in TS
 - Syntax + features - modules systems
@@ -223,12 +223,120 @@ const logTodo = (id:number, title: string, completed:boolean) => {
   - examples
   - when to use
 
+---
+
 13. Types (5min)
+
+- Type -> easy way to refer to the different properties and functions that a value has
+
 14. More on Types (6min)
+
+- 2 categories of types:
+  - primitive types -> string, number, boolean, void, undefined, null, symbol
+  - Object types -> functions, arrays, classes, objects
+- Types - used by typescript compiler to analyze code for errors
+- Types - allow other devs to understand what data values are in the codebase
+
+## Features
+
+- TODO FEATURE: Make interfaces for axios response.data objects
+- TODO FEATURE: make use of 'as TYPE' to type some data to an interface
+- TODO FEATURE: give type annotations to function parameters ( parameters are what you can pass to a function and arguments are actually values passed in a function)
+- TODO FEATURE: Tuples (mutiple values(with different type - ONLY the values) for each entry in array) - no attributes, order is critical
+- TODO FEATURE: Type alias
+
+```ts
+type Drink = [string, boolean, number];
+
+//same as
+const pepsi: Drink;
+```
+
+## Notes
+
+- type annotation vs type inference
+  - same line initialization and assignment - value has automatic inference (typescript figures out whats the type)
+- 3 senarios for adding annotations
+
+  1. when function returns any type (eg. response from axios call / JSON.parse() etc when typescript cant figure out return type)
+  2. delayed initialization (when variable declaration and value assignment not on same line)
+  3. when inferance doesnt work - (eg. variable is reassigned a value with different type)
+
 15. Examples of Types (5min)
+
+- autocomplete once we assigned type as Date
+
+```ts
+const date = new Date();
+```
+
+- Class
+
+```ts
+class Color {}
+const red = new Color();
+```
+
 16. Where Do We Use Types? (1min)
 
-### Section 03 - Type annotations in action
+- where are types used -> everywhere
+
+---
+
+## Section 03 - Type annotations in action
+
+### - array of type string:
+
+```ts
+  let colors:string[] (string array)
+```
+
+### classes
+
+- classes
+  ```ts
+  class Car {}
+  let car: Car = new Car();
+  ```
+
+### Object literal
+
+- object literal
+
+```ts
+let point: { x: number; y: number } = {
+  x: 20,
+  y: 23,
+};
+```
+
+### Functions
+
+- function annotation - (what arguments going into function, what we return)
+  1. function varible annotation: const x:(i: number) => void
+  2. function annotations (everything on right side of =) = (function inputs / function return types):
+  - type inference only for return type of function (not the arguments)
+  - we always annotate return type (this is for arrow functions, named functions, anonymous functions assigned to variable type) because there are times when we can forget to return something...and typecript will infer return as 'void'
+  - :void return type for return null or undefined
+  - :never return type is when we ONLY throw errors and dont return something so there is no way function will complete
+
+```ts
+const logNumber: (i: number) => void = (i: number) => {};
+```
+
+-- interface
+
+```ts
+interface Todo {
+  id: number;
+  title: string;
+  completed: boolean;
+}
+
+axios.get(url).then((response) => {
+  const todo = response.data as Todo; //TYPESCRIPT: as interface
+});
+```
 
 17. Type Annotations and Inference (2min)
 18. Annotations with Variables (5min)
@@ -240,7 +348,7 @@ const logTodo = (id:number, title: string, completed:boolean) => {
 24. Delayed Initialization (3min)
 25. When Inference Doesn't Work (5min)
 
-### Section 04 - Annotations with functions and objects
+## Section 04 - Annotations with functions and objects
 
 26. More on Annotations Around Functions (5min)
 27. Inference Around Functions (6min)
@@ -249,20 +357,20 @@ const logTodo = (id:number, title: string, completed:boolean) => {
 30. Destructuring with Annotations (4min)
 31. Annotations Around Objects (7min)
 
-### Section 05 - Mastering Typed Arrays
+## Section 05 - Mastering Typed Arrays
 
 32. Arrays in Typescript (5min)
 33. Why Typed Arrays? (5min)
 34. Multiple Types in Arrays (3min)
 35. When to Use Typed Arrays (1min)
 
-### Section 06 - Tuples in Typescript
+## Section 06 - Tuples in Typescript
 
 36. Tuples in Typescript (4min)
 37. Tuples in Action (5min)
 38. Why Tuples? (3min)
 
-### Section 07 - The all important interface
+## Section 07 - The all important interface
 
 39. Interfaces (1min)
 40. Long Type Annotations (5min)
@@ -272,7 +380,7 @@ const logTodo = (id:number, title: string, completed:boolean) => {
 44. Code Reuse with Interfaces (4min)
 45. General Plan with Interfaces (3min)
 
-### Section 08 - Building functionality with classes
+## Section 08 - Building functionality with classes
 
 46. Classes (4min)
 47. Basic Inheritance (3min)
@@ -281,7 +389,7 @@ const logTodo = (id:number, title: string, completed:boolean) => {
 50. Fields with Inheritance (4min)
 51. Where to Use Classes (1min)
 
-### Section 09 - Design Patterns with Typescript
+## Section 09 - Design Patterns with Typescript
 
 52. Updated Parcel Instructions (1min)
 53. App Overview (3min)
