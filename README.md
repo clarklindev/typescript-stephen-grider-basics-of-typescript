@@ -6,9 +6,11 @@
 - NOTE: this section has been extracted to its own repository: [typescript-stephengrider-basics-of-typescript](https://github.com/clarklindev/typescript-stephengrider-basics-of-typescript)
 - this section is also covered in courses:
   - [microservices-with-node-js-and-react](https://www.udemy.com/course/microservices-with-node-js-and-react/) - section 25: appendix B - basics of typescript
+    - [my git repository](https://github.com/clarklindev/microservices-stephengrider-with-node-and-react)
   - [typescript-the-complete-developers-guide](https://www.udemy.com/course/typescript-the-complete-developers-guide) - section 01 to section 09
     - [my git repository](https://github.com/clarklindev/typescript-stephengrider-typescript-complete-developers-guide)
   - [react-and-typescript-build-a-portfolio-project](https://www.udemy.com/course/react-and-typescript-build-a-portfolio-project) - section 26: Appendix:Typescript
+    - [my git repository](https://github.com/clarklindev/typescript-stephengrider-typescript-portfolio)
 
 ---
 
@@ -28,7 +30,7 @@
 
 ---
 
-### Section 01 - getting started with typescript
+## Section 01 - getting started with typescript
 
 1. How to Get Help (1min)
 
@@ -81,16 +83,146 @@
 
 7. A First App (5min)
 
-- see [/tutorial-stephengrider-typescript-01-basic-example](./tutorial-stephengrider-typescript-01-basic-example/README.md)
+### A basic api fetching data
+
+- see project files: [/tutorial-stephengrider-typescript-01-basic-example](./tutorial-stephengrider-typescript-01-basic-example)
+- TODO: make a network request to fetch some JSON and print the result
+- TODO: create a project folder
+  - i've named mine: `tutorial-stephengrider-typescript-01-basic-example`
+  - go into folder
+- TODO: create node project `npm init -y`
+- TODO: create index.js
+
+### installs
+
+- install axios
+- install ts-node
+- install typescript
+
+```shell
+npm i axios
+npm i --save-dev ts-node typescript
+```
+
+### fetch data using json typicode (jsonplaceholder.typicode.com)
+
+- https://jsonplaceholder.typicode.com/todos
+- https://jsonplaceholder.typicode.com/todos/1
 
 8. Executing Typescript Code (5min)
+
+```shell
+# compile -> creates index.js
+tsc index.ts
+```
+
+```ts
+import axios from 'axios';
+const url = 'https://jsonplaceholder.typicode.com/todos/1';
+
+axios.get(url).then((response) => {
+  console.log(response.data);
+});
+```
+
+# run the js
+
+```shell
+node index.js
+```
+
+- expected output:
+
+```cmd
+{ userId: 1, id: 1, title: 'delectus aut autem', completed: false }
+```
+
+```json
+// package.json
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc index.ts",
+    "dev": "node index.js",
+    "start": "ts-node index.ts"
+  },
+```
+
+- ts-node (compile + run)
+- NOTE: running ts-node on its own does not create output .js file (like with tsc)
+
 9. One Quick Change (4min)
+
+- makes some mistakes in code: passing wrong variable names
+- does not have type checking
+
 10. Catching Errors with Typescript (7min)
+
+- below is the finished code (with Typescript)
+- added an interface: defining structure of an object
+
+```js
+//index.ts
+import axios from 'axios';
+
+const url = "https://jsonplaceholder.typicode.com/todos/1";
+
+//TYPESCRIPT: interface
+interface Todo{
+  id: number;
+  title: string;
+  completed: boolean;
+}
+
+axios.get(url).then(response => {
+  const todo = response.data as Todo;  //TYPESCRIPT: as interface
+
+  const id = todo.id;
+  const title = todo.title;
+  const completed = todo.completed;
+
+  logTodo(id, title, completed);
+
+});
+
+//TYPESCRIPT: give type annotations to function parameters
+const logTodo = (id:number, title: string, completed:boolean) => {
+  console.log(`${id} ${title} ${completed}`)
+}
+```
+
 11. Catching More Errors! (5min)
+
+- created the logTodo function
+- error was the order of arguments passed in
+  - FIX: give the arguments types so it picks up if wrong prop passed-in
 
 ### Section 02 - What is a type system
 
 12. Do Not Skip - Course Overview (4min)
+
+### learning Typescript:
+
+- syntax + features
+  - focus on this first, then design patterns
+- design patterns with TS (FOCUS OF COURSE)
+  - eg. how to use interfaces to write re-usable code
+
+### course goals
+
+- Syntax + features - understanding basic types in TS
+- Syntax + features - Function typing + annotations
+- Syntax + features - Type definition files
+- Syntax + features - arrays in TS
+- Syntax + features - modules systems
+- Syntax + features - classes + refresher on OOP
+- design pattern - Projects
+
+- for each of the topics
+  - definition
+  - why?
+  - examples
+  - when to use
+
 13. Types (5min)
 14. More on Types (6min)
 15. Examples of Types (5min)
