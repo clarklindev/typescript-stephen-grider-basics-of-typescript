@@ -410,54 +410,158 @@ for (let i = 0; i < numbers.length; i++) {
 ## Section 04 - Annotations with functions and objects
 
 26. More on Annotations Around Functions (5min)
+
+- before we were adding annotations for the variable declaration (left-side of equals sign)
+- this section deals with annotations/inference for the right side of equals sign (ie the function arguments and return value)
+- type annotations for function
+  - code we add to tell typescript what type of arguments a function will receive and what type of values it will return
+- type inference for functions
+  - typescript tries to figure out what type of value a function will return
+  - there is no type inference for function arguments
+  - type inference is only for return type of function BUT we will always annotate the return type
+
+```ts
+//here we annotate return type as :number
+const add = (a: number, b: number): number => {
+  return a + b;
+};
+```
+
 27. Inference Around Functions (6min)
+
+- typescript ensures correct return value by inferring return value (but not correct logic inside function)
+- we always annotate return type (this is for arrow functions, named functions, anonymous functions assigned to variable type) because there are times when we can forget to return something...and typecript will infer return as 'void'
+- `:void` return type for return null or undefined
+
 28. Annotations for Anonymous Functions (2min)
-29. Void and Never (3min)
-30. Destructuring with Annotations (4min)
-31. Annotations Around Objects (7min)
 
-## Features
-
-- TODO FEATURE: Make interfaces for axios response.data objects
-- TODO FEATURE: make use of 'as TYPE' to type some data to an interface
-- TODO FEATURE: give type annotations to function parameters ( parameters are what you can pass to a function and arguments are actually values passed in a function)
-- TODO FEATURE: Tuples (mutiple values(with different type - ONLY the values) for each entry in array) - no attributes, order is critical
-- TODO FEATURE: Type alias
+- arrow function
+- anonymous function
+- assigned function
 
 ```ts
-type Drink = [string, boolean, number];
+//arrow function
+const subtract = (a: number, b: number): number => {
+  return a - b;
+};
 
-//same as
-const pepsi: Drink;
-```
-
-### Functions
-
-- function annotation - (what arguments going into function, what we return)
-  1. function varible annotation: const x:(i: number) => void
-  2. function annotations (everything on right side of =) = (function inputs / function return types):
-  - type inference only for return type of function (not the arguments)
-  - we always annotate return type (this is for arrow functions, named functions, anonymous functions assigned to variable type) because there are times when we can forget to return something...and typecript will infer return as 'void'
-  - :void return type for return null or undefined
-  - :never return type is when we ONLY throw errors and dont return something so there is no way function will complete
-
-```ts
-const logNumber: (i: number) => void = (i: number) => {};
-```
-
--- interface
-
-```ts
-interface Todo {
-  id: number;
-  title: string;
-  completed: boolean;
+//anonymous function
+function divide(a: number, b: number): number {
+  return a / b;
 }
 
-axios.get(url).then((response) => {
-  const todo = response.data as Todo; //TYPESCRIPT: as interface
-});
+//assigned function
+const multiply = function (a: number, b: number): number {
+  return a * b;
+};
 ```
+
+29. Void and Never (3min)
+
+- `:void` -> there is no return
+
+- `:never`
+  - when we ONLY throw errors and dont return something so there is no way function will complete
+  - if the function eventually returns something but could throw error, its return type is still for a success completion case
+
+```ts
+//never
+const throwError = (message: string): never => {
+  throw new Error(message);
+};
+```
+
+30. Destructuring with Annotations (4min)
+
+### BEFORE
+
+```ts
+const todaysWeather = {
+  date: new Date(),
+  weather: 'sunny',
+};
+
+const logWeather = (forecast: { date: Date; weather: string }): void => {
+  console.log(forecast.date);
+  console.log(forecast.weather);
+};
+
+logWeather(todaysWeather);
+```
+
+- destructuring date, and weather out of forecast
+- you can do this by replacing `forecast` with the props you want to get out of `forecast`
+  - NOTE: the annotation type and destructure are separate
+
+### AFTER
+
+```ts
+const todaysWeather = {
+  date: new Date(),
+  weather: 'sunny',
+};
+
+const logWeather = (
+  //<destructure of `forecast`> : <annotation>
+  {
+    date,
+    weather,
+  }: {
+    date: Date;
+    weather: string;
+  }
+): void => {
+  console.log(date);
+  console.log(weather);
+};
+
+logWeather(todaysWeather);
+```
+
+31. Annotations Around Objects (7min)
+
+```ts
+const profile = {
+  name: 'alex',
+  age: 20,
+  coords: {
+    lat: 0,
+    lng: 15,
+  },
+  setAge(age: number): void {
+    this.age = age;
+  },
+};
+```
+
+- normal object destructuring `age` out of `profile`
+
+```ts
+const { age } = profile;
+```
+
+### annotation for destructured 'profile'
+
+- with annotations -> add `: <structure of profile object>`
+- to understand this: `{age}` is the destructured object prop, so to annotate, add: `{the expected attribute of profile structure}`
+
+```ts
+const { age }: { age: number } = profile; //with annotation for destructured 'profile'
+```
+
+### annotation for destructured 'profile' prop 'coords' (which is also an object)
+
+- to understand this: `{coords: { lat, lng }}` is the destructured object prop
+- so to annotate, add: `{the expected attribute of profile structure}` eg. `{ coords: { lat: number; lng: number } } `
+- note: `{the expected attribute of profile structure}` is an object to allow destructing multiple props out of 'profile'
+
+```ts
+const {
+  coords: { lat, lng },
+}: { coords: { lat: number; lng: number } } = profile; //with annotation for destructured 'profile'
+```
+
+---
 
 ## Section 05 - Mastering Typed Arrays
 
@@ -481,6 +585,35 @@ axios.get(url).then((response) => {
 43. Functions in Interfaces (5min)
 44. Code Reuse with Interfaces (4min)
 45. General Plan with Interfaces (3min)
+
+- TODO FEATURE: Make interfaces for axios response.data objects
+- TODO FEATURE: make use of 'as TYPE' to type some data to an interface
+- TODO FEATURE: give type annotations to function parameters ( parameters are what you can pass to a function and arguments are actually values passed in a function)
+- TODO FEATURE: Tuples (mutiple values(with different type - ONLY the values) for each entry in array) - no attributes, order is critical
+- TODO FEATURE: Type alias
+
+```ts
+type Drink = [string, boolean, number];
+
+//same as
+const pepsi: Drink;
+```
+
+```ts
+const logNumber: (i: number) => void = (i: number) => {};
+```
+
+```ts
+interface Todo {
+  id: number;
+  title: string;
+  completed: boolean;
+}
+
+axios.get(url).then((response) => {
+  const todo = response.data as Todo; //TYPESCRIPT: as interface
+});
+```
 
 ## Section 08 - Building functionality with classes
 
