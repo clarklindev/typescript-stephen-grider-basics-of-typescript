@@ -1113,6 +1113,8 @@ car.honk();
 
 ## Section 09 - Design Patterns with Typescript
 
+- project folder: `/tutorial-stephengrider-typescript-02-designpatterns-googlemaps/`
+
 ```ts
 const logNumber: (i: number) => void = (i: number) => {};
 ```
