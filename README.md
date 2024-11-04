@@ -126,14 +126,16 @@
 
 ## Section 01 - getting started with typescript
 
-1. How to Get Help (1min)
+### 1. How to Get Help (1min)
 
 - @ste_grider
 - udemy Q&a
 
-2. Join Our Community! (1min)
-3. Course Resources (1min)
-4. Typescript Overview (6min)
+### 2. Join Our Community! (1min)
+
+### 3. Course Resources (1min)
+
+### 4. Typescript Overview (6min)
 
 - adding a type-system
 - catch errors during development
@@ -144,7 +146,7 @@
 
 - typescript (js + annotations) -> typescript compiler -> js
 
-5. Environment Setup (8min)
+### 5. Environment Setup (8min)
 
 - install typescript compiler -> `npm install -g typescript ts-node`
 
@@ -168,16 +170,16 @@
   - enable format on save:
     `CTRL + ,` -> search and enable 'Format On Save'
 
-6. Important Axios and TypeScript Version Information (1min)
+### 6. Important Axios and TypeScript Version Information (1min)
 
 - when using latest axios need types: `npm install --save-dev @types/node`
 - TS 5.6 has breaking changes (ts-node not nsync)
 - install typscript v5.5 `npm install -g typescript@5.5`
   - this fixes `Cannot use import statement outside a module` errors
 
-7. A First App (5min)
+### 7. A First App (5min)
 
-### A basic api fetching data
+#### A basic api fetching data
 
 - see project files: [/tutorial-stephengrider-typescript-01-basic-example](./tutorial-stephengrider-typescript-01-basic-example)
 - TODO: make a network request to fetch some JSON and print the result
@@ -187,7 +189,7 @@
 - TODO: create node project `npm init -y`
 - TODO: create index.js
 
-### installs
+#### installs
 
 - install axios
 - install ts-node
@@ -198,12 +200,12 @@ npm i axios
 npm i --save-dev ts-node typescript
 ```
 
-### fetch data using json typicode (jsonplaceholder.typicode.com)
+#### fetch data using json typicode (jsonplaceholder.typicode.com)
 
 - https://jsonplaceholder.typicode.com/todos
 - https://jsonplaceholder.typicode.com/todos/1
 
-8. Executing Typescript Code (5min)
+### 8. Executing Typescript Code (5min)
 
 ```shell
 # compile -> creates index.js
@@ -219,7 +221,7 @@ axios.get(url).then((response) => {
 });
 ```
 
-# run the js
+- run the js
 
 ```shell
 node index.js
@@ -244,12 +246,12 @@ node index.js
 - ts-node (compile + run)
 - NOTE: running ts-node on its own does not create output .js file (like with tsc)
 
-9. One Quick Change (4min)
+### 9. One Quick Change (4min)
 
 - makes some mistakes in code: passing wrong variable names
 - does not have type checking
 
-10. Catching Errors with Typescript (7min)
+### 10. Catching Errors with Typescript (7min)
 
 - below is the finished code (with Typescript)
 - added an interface: defining structure of an object
@@ -284,7 +286,7 @@ const logTodo = (id:number, title: string, completed:boolean) => {
 }
 ```
 
-11. Catching More Errors! (5min)
+### 11. Catching More Errors! (5min)
 
 - created the logTodo function
 - error was the order of arguments passed in
@@ -292,16 +294,16 @@ const logTodo = (id:number, title: string, completed:boolean) => {
 
 ## Section 02 - What is a type system
 
-12. Do Not Skip - Course Overview (4min)
+### 12. Do Not Skip - Course Overview (4min)
 
-### learning Typescript:
+#### learning Typescript:
 
 - syntax + features
   - focus on this first, then design patterns
 - design patterns with TS (FOCUS OF COURSE)
   - eg. how to use interfaces to write re-usable code
 
-### course goals
+#### course goals
 
 - Syntax + features - section 2 - understanding basic types in TS
 - Syntax + features - section 3 - Function typing + annotations
@@ -319,11 +321,11 @@ const logTodo = (id:number, title: string, completed:boolean) => {
 
 ---
 
-13. Types (5min)
+### 13. Types (5min)
 
 - Type -> easy way to refer to the different properties and functions that a value has
 
-14. More on Types (6min)
+### 14. More on Types (6min)
 
 - 2 categories of types:
   - primitive types -> string, number, boolean, void, undefined, null, symbol
@@ -331,7 +333,7 @@ const logTodo = (id:number, title: string, completed:boolean) => {
 - Types - used by typescript compiler to analyze code for errors
 - Types - allow other devs to understand what data values are in the codebase
 
-15. Examples of Types (5min)
+### 15. Examples of Types (5min)
 
 - autocomplete once we assigned type as Date
 
@@ -346,7 +348,7 @@ class Color {}
 const red = new Color();
 ```
 
-16. Where Do We Use Types? (1min)
+### 16. Where Do We Use Types? (1min)
 
 - where are types used -> everywhere
 
@@ -354,7 +356,7 @@ const red = new Color();
 
 ## Section 03 - Type annotations in action
 
-17. Type Annotations and Inference (2min)
+### 17. Type Annotations and Inference (2min)
 
 - type annotation -> code we add to let Typescript know what type of value a variable refers to
 - type inference -> typescript tries to figure out what type of value a variable refers to
@@ -364,7 +366,7 @@ const red = new Color();
   - functions
   - objects
 
-18. Annotations with Variables (5min)
+### 18. Annotations with Variables (5min)
 
 - annotation -> `:type`
 
@@ -372,9 +374,9 @@ const red = new Color();
 const apples: number = 5; //:number is an annotation
 ```
 
-19. Object Literal Annotations (7min)
+### 19. Object Literal Annotations (7min)
 
-### array type annotation:
+#### array type annotation:
 
 - `string[]` an array of strings
 - `number[]` array of numbers
@@ -387,7 +389,7 @@ let numbers: number[] = [1, 2, 3];
 let booleans: bool[] = [true, false, false];
 ```
 
-### classes type annotations:
+#### classes type annotations:
 
 - `Car`'s type starts with capital (so its a class type)
 
@@ -397,7 +399,7 @@ class Car {}
 let car: Car = new Car();
 ```
 
-### object literal type annotations:
+#### object literal type annotations:
 
 - when the annotation is an object
 
@@ -409,7 +411,7 @@ let point: { x: number; y: number } = {
 };
 ```
 
-20. Annotations Around Functions (6min)
+### 20. Annotations Around Functions (6min)
 
 - when the annotation type is a function.
 - function annotation -> the function annotation define the props it receives, and the return type
@@ -421,14 +423,14 @@ const logNumber: (i: number) => void = (i: number) => {
 };
 ```
 
-21. Understanding Inference (4min)
+### 21. Understanding Inference (4min)
 
 - so if we remove the annotations, typescript infers the type -> meaning based on the value it determines the type.
 - when you make a variable (there is a left and right of equals sign)
   - variable declaration -> left of =
   - variable initialization -> right of =
 
-### automatic inference
+#### automatic inference
 
 - automatic inference (typescript figures out whats the type) -> same line declaration and initialization
 - when do we use type inference?
@@ -438,14 +440,14 @@ const logNumber: (i: number) => void = (i: number) => {
 const color = 'red'; //automatic inference because declaration (left) and initialization (right) are on same line
 ```
 
-### when do we add annotations?
+#### when do we add annotations?
 
 - 3 senarios for ADDING annotations:
   - when function returns 'any' type and we need to clarify the type
   - when we declare a variable on one line then initialize it later
   - when we want a variable to have a type that cant be inferred
 
-22. senario: The 'Any' Type (8min)
+### 22. senario: The 'Any' Type (8min)
 
 - when function returns `any` type
 - ie. response from axios call / `JSON.parse()` -> typescript cant figure out return type because JSON.parse() depends on input string value and can yield varying results/types.
@@ -460,7 +462,7 @@ console.log(coordinates);
 {x: 10, y:20}
 ```
 
-23. Fixing the 'Any' Type (2min)
+### 23. Fixing the 'Any' Type (2min)
 
 ```ts
 //...
@@ -470,7 +472,7 @@ const coordinates: { x: number; y: number } = JSON.parse(json); //FIX by adding 
 //...
 ```
 
-24. senario: Delayed Initialization (3min)
+### 24. senario: Delayed Initialization (3min)
 
 - when we declare a variable on one line and initialize it later
 - when variable declaration and value assignment not on same line
@@ -486,7 +488,7 @@ for (let i = 0; i < words.length; i++) {
 }
 ```
 
-25. senario: When Inference doesn't Work (5min)
+### 25. senario: When Inference doesn't Work (5min)
 
 - eg. variable is reassigned a value with different type
 
@@ -503,7 +505,7 @@ for (let i = 0; i < numbers.length; i++) {
 
 ## Section 04 - Annotations with functions and objects
 
-26. More on Annotations Around Functions (5min)
+### 26. More on Annotations Around Functions (5min)
 
 - before we were adding annotations for the variable declaration (left-side of equals sign)
 - this section deals with annotations/inference for the right side of equals sign (ie the function arguments and return value)
@@ -521,13 +523,13 @@ const add = (a: number, b: number): number => {
 };
 ```
 
-27. Inference Around Functions (6min)
+### 27. Inference Around Functions (6min)
 
 - typescript ensures correct return value by inferring return value (but not correct logic inside function)
 - we always annotate return type (this is for arrow functions, named functions, anonymous functions assigned to variable type) because there are times when we can forget to return something...and typecript will infer return as 'void'
 - `:void` return type for return null or undefined
 
-28. Annotations for Anonymous Functions (2min)
+### 28. Annotations for Anonymous Functions (2min)
 
 - arrow function
 - anonymous function
@@ -550,7 +552,7 @@ const multiply = function (a: number, b: number): number {
 };
 ```
 
-29. Void and Never (3min)
+### 29. Void and Never (3min)
 
 - `:void` -> there is no return
 
@@ -565,9 +567,9 @@ const throwError = (message: string): never => {
 };
 ```
 
-30. Destructuring with Annotations (4min)
+### 30. Destructuring with Annotations (4min)
 
-### BEFORE
+#### BEFORE
 
 ```ts
 const todaysWeather = {
@@ -587,7 +589,7 @@ logWeather(todaysWeather);
 - you can do this by replacing `forecast` with the props you want to get out of `forecast`
   - NOTE: the annotation type and destructure are separate
 
-### AFTER
+#### AFTER
 
 ```ts
 const todaysWeather = {
@@ -612,7 +614,7 @@ const logWeather = (
 logWeather(todaysWeather);
 ```
 
-31. Annotations Around Objects (7min)
+### 31. Annotations Around Objects (7min)
 
 ```ts
 const profile = {
@@ -634,7 +636,7 @@ const profile = {
 const { age } = profile;
 ```
 
-### annotation for destructured 'profile'
+#### annotation for destructured 'profile'
 
 - with annotations -> add `: <structure of profile object>`
 - to understand this: `{age}` is the destructured object prop, so to annotate, add: `{the expected attribute of profile structure}`
@@ -643,7 +645,7 @@ const { age } = profile;
 const { age }: { age: number } = profile; //with annotation for destructured 'profile'
 ```
 
-### annotation for destructured 'profile' prop 'coords' (which is also an object)
+#### annotation for destructured 'profile' prop 'coords' (which is also an object)
 
 - to understand this: `{coords: { lat, lng }}` is the destructured object prop
 - so to annotate, add: `{the expected attribute of profile structure}` eg. `{ coords: { lat: number; lng: number } } `
@@ -659,7 +661,7 @@ const {
 
 ## Section 05 - Mastering Typed Arrays
 
-32. Arrays in Typescript (5min)
+### 32. Arrays in Typescript (5min)
 
 - typed arrays - arrays where each element has a consistent type
 - type inference looking at values stored
@@ -675,14 +677,14 @@ const carMakers: string[] = ['ford', 'toyota', 'chevy']; //with annotation, but 
 const carsByMake:string[][] = [['ford'], ['mazda'], ['bmw']];
 ```
 
-33. Why Typed Arrays? (5min)
+### 33. Why Typed Arrays? (5min)
 
 - type inference when pulling value out of array
 - adding incompatible values
 - Array has helper functions
 - flexible (arrays can contain multiple different types)
 
-34. Multiple Types in Arrays (3min)
+### 34. Multiple Types in Arrays (3min)
 
 - override type inference by adding annotation (eg. when initializing with empty array)
 
@@ -690,19 +692,19 @@ const carsByMake:string[][] = [['ford'], ['mazda'], ['bmw']];
 const importantDates: (Date | string)[] = [new Date()];
 ```
 
-35. When to Use Typed Arrays (1min)
+### 35. When to Use Typed Arrays (1min)
 
 - when to use? -> when you have a collection of records with some arbitary sort order
 
 ## Section 06 - Tuples in Typescript
 
-36. Tuples in Typescript (4min)
+### 36. Tuples in Typescript (4min)
 
 - with tuple, the annotation describes the type of the properties and order of the values
 - difference -> array like structure, BUT.. each element represents some property of a record
 - array example: `[brown , true, 40]` there is loss of information because we dont know what the properties are associated with which values - so order is important and needs to be remembered
 
-### type alias
+#### type alias
 
 - you can replace tuple structure by defining a type alias
 
@@ -710,7 +712,7 @@ const importantDates: (Date | string)[] = [new Date()];
 type Drink = [string, boolean, number]; //type alias
 ```
 
-37. Tuples in Action (5min)
+### 37. Tuples in Action (5min)
 
 - eg. plain object
 
@@ -747,7 +749,7 @@ const sprite: Drink = ['clear', true, 40];
 const tea: Drink = ['brown', false, 0];
 ```
 
-38. Why Tuples? (3min)
+### 38. Why Tuples? (3min)
 
 - NOTE: prefer using objects because object keys have meaning whereas tuples only define the value type and order
 - wont use it often... maybe with .csv file
@@ -768,12 +770,12 @@ const carStats = {
 
 ## Section 07 - The all important interface
 
-39. Interfaces (1min)
+### 39. Interfaces (1min)
 
 - create a new type describing the property names and value types of an object
 - ie. creating a new type (a custom type just like 'string' or 'number')
 
-40. Long Type Annotations (5min)
+### 40. Long Type Annotations (5min)
 
 - this is just an example of using a long type annotation (not using interface)
 - wont use this way, because everytime you have a function receiving `oldCivic` you have to type out the long annotation type
@@ -796,7 +798,7 @@ const printVehicle = (vehicle: {
 };
 ```
 
-41. Fixing Long Annotations with Interfaces (5min)
+### 41. Fixing Long Annotations with Interfaces (5min)
 
 - adding an interface
 - generic name for interface (capital case)
@@ -823,7 +825,7 @@ const printVehicle = (vehicle: Vehicle): void => {
 printVehicle(oldCivic);
 ```
 
-42. Syntax Around Interfaces (4min)
+### 42. Syntax Around Interfaces (4min)
 
 - interfaces can have properties of complex type eg. Date
 - interfaces can have functions:
@@ -865,7 +867,7 @@ const printVehicle = (vehicle: Vehicle): void => {
 console.log(oldCivic.summary());
 ```
 
-43. Functions in Interfaces (5min)
+### 43. Functions in Interfaces (5min)
 
 - when typescript tries to decide if an object is of a type, the object can have more properties than the interface requires BUT not less
 - FIX -> with example below, we change interface `Vehicle` to `Reportable` because technically, `printVehicle` function only needs to receive a type with summary()
@@ -881,7 +883,7 @@ const printSummary = (item: Reportable): void => {
 };
 ```
 
-44. Code Reuse with Interfaces (4min)
+### 44. Code Reuse with Interfaces (4min)
 
 - we made the code more generic to be reusable
 - NOTE: civic and drink both have `summary()` function so they are both of type `Reportable`
@@ -908,24 +910,37 @@ printSummary(drink);
 
 ```
 
-45. General Plan with Interfaces (3min)
+### 45. General Plan with Interfaces (3min)
 
-![interfaces-general-plan-with-interaces](exercise_files/Section-07-interfaces-general-plan-with-interaces.png)
+![interfaces-general-plan-with-interaces](exercise_files/section07-interfaces-general-plan-with-interaces.png)
 
 - using interfaces for gatekeeping/compatible to functions is way we get reusability with typescript.
 
-  - ie. create functions that are typed with interfaces
-  - make objects satisfy the interface to use the generic function
-  - make use of 'as TYPE' to type some data to an interface
-  - Make interfaces for axios response.data objects
-  - give type annotations to function parameters ( parameters are what you can pass to a function and arguments
-    are actually values passed in a function)
+- ie. create functions that are typed with interfaces
+- make objects satisfy the interface to use the generic function
+- make use of 'as TYPE' to type some data to an interface
+- Make interfaces for axios response.data objects
+
+```ts
+interface Todo {
+  id: number;
+  title: string;
+  completed: boolean;
+}
+
+axios.get(url).then((response) => {
+  const todo = response.data as Todo; //TYPESCRIPT: as interface
+});
+```
+
+- give type annotations to function parameters ( `parameters` are what you can pass to a function and `arguments`
+  are actually values passed in a function)
 
 ---
 
 ## Section 08 - Building functionality with classes
 
-46. Classes (4min)
+### 46. Classes (4min)
 
 - class is a blueprint -> to create an object with some fields (values) and methods (functions) to represent an idea
 - How we will learn classes
@@ -952,7 +967,7 @@ vehicle.drive();
 vehicle.honk();
 ```
 
-47. Basic Inheritance (3min)
+### 47. Basic Inheritance (3min)
 
 - you can extend a class
 - you can redefine methods in a class that extends another class that has a method with same name
@@ -979,7 +994,7 @@ const car = new Car();
 car.drive(); //prints 'vroom'
 ```
 
-48. class method modifiers (7min)
+### 48. class method modifiers (7min)
 
 - keywords you can place on methods -> `public` (default), `private`, `protected`
 - goal is to restrict access to functions and variables (FOR OTHER DEVELOPERS)
@@ -1031,7 +1046,7 @@ car.startDriving(); //ok
 car.honk();
 ```
 
-49. Fields in Classes (6min)
+### 49. Fields in Classes (6min)
 
 - adding fields to classes
 - traditionally you have to initialize variables in classes with a value and if you want to pass a value in, you define a constructor
@@ -1059,7 +1074,7 @@ class Vehicle {
 }
 ```
 
-50. Fields with Inheritance (4min)
+### 50. Fields with Inheritance (4min)
 
 - NOTE: parent class receives 'color', so child class must pass this in
 - NOTE: WHEN CHILD CLASS DOES NOT HAVE CONSTRUCTOR -> `class Car` calls the parent's constructor
@@ -1105,7 +1120,7 @@ car.drive();
 car.honk();
 ```
 
-51. Where to Use Classes (1min)
+### 51. Where to Use Classes (1min)
 
 - Classes allow strong code reuse
 
@@ -1113,49 +1128,73 @@ car.honk();
 
 ## Section 09 - Design Patterns with Typescript
 
+### 52. Updated Parcel Instructions (1min)
+
+- Parcel tool can be run without installation using npx
+- To build the app and run the development server, simply run the following command in your terminal:
+
+```cmd
+npx parcel index.html
+```
+
+### 53. App Overview (3min)
+
+![section09-design-patterns-with-typescript-app-overview](exercise_files/section09-design-patterns-with-typescript-app-overview.png)
+
 - project folder: `/tutorial-stephengrider-typescript-02-designpatterns-googlemaps/`
+- TODO: web app (browser) randomly generate (User OR Company) and show it on google map
 
-```ts
-const logNumber: (i: number) => void = (i: number) => {};
-```
+### 54. Bundling with Parcel (5min)
 
-```ts
-interface Todo {
-  id: number;
-  title: string;
-  completed: boolean;
-}
+![section09-design-patterns-with-typescript-parcel.png](exercise_files/section09-design-patterns-with-typescript-parcel.png)
 
-axios.get(url).then((response) => {
-  const todo = response.data as Todo; //TYPESCRIPT: as interface
-});
-```
+- `npm i -g parcel-bundler` (note: install globally)
+- parcel will help get typscript working in browser (instead of `ts-node`)
 
-52. Updated Parcel Instructions (1min)
-53. App Overview (3min)
-54. Bundling with Parcel (5min)
-55. Project Structure (3min)
-56. IMPORTANT Info About Faker Installation (1min)
-57. Generating Random Data (5min)
-58. Type Definition Files (5min)
-59. Using Type Definition Files (6min)
-60. Export Statements in Typescript (5min)
-61. Defining a Company (5min)
-62. Note on Generating an API Key (1min)
-63. Adding Google Maps Support (8min)
-64. Required Update for New @types Library (1min)
-65. Google Maps Integration (4min)
-66. Exploring Type Definition Files (3min)
-67. Hiding Functionality (6min)
-68. Why Use Private Modifiers? Here's Why (8min)
-69. Adding Markers (9min)
-70. Duplicate Code (3min)
-71. One Possible Solution (7min)
-72. Restricting Access with Interfaces (6min)
-73. Implicit Type Checks (3min)
-74. Showing Popup Windows (7min)
-75. Updating Interface Definitions (7min)
-76. Optional Implements Clauses (6min)
-77. App Wrapup (8min)
+### 55. Project Structure (3min)
+
+### 56. IMPORTANT Info About Faker Installation (1min)
+
+### 57. Generating Random Data (5min)
+
+### 58. Type Definition Files (5min)
+
+### 59. Using Type Definition Files (6min)
+
+### 60. Export Statements in Typescript (5min)
+
+### 61. Defining a Company (5min)
+
+### 62. Note on Generating an API Key (1min)
+
+### 63. Adding Google Maps Support (8min)
+
+### 64. Required Update for New @types Library (1min)
+
+### 65. Google Maps Integration (4min)
+
+### 66. Exploring Type Definition Files (3min)
+
+### 67. Hiding Functionality (6min)
+
+### 68. Why Use Private Modifiers? Here's Why (8min)
+
+### 69. Adding Markers (9min)
+
+### 70. Duplicate Code (3min)
+
+### 71. One Possible Solution (7min)
+
+### 72. Restricting Access with Interfaces (6min)
+
+### 73. Implicit Type Checks (3min)
+
+### 74. Showing Popup Windows (7min)
+
+### 75. Updating Interface Definitions (7min)
+
+### 76. Optional Implements Clauses (6min)
+
+### 77. App Wrapup (8min)
 
 ---
