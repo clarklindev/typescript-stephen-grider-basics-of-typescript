@@ -1148,8 +1148,35 @@ npx parcel index.html
 
 ![section09-design-patterns-with-typescript-parcel.png](exercise_files/section09-design-patterns-with-typescript-parcel.png)
 
-- `npm i -g parcel-bundler` (note: install globally)
+- `npm i -g parcel` (note: install globally)
 - parcel will help get typscript working in browser (instead of `ts-node`)
+  - NOTE: By default Parcel does not perform any code transpilation. This means that if you write your code using modern language features, that’s what Parcel will output. You can declare your app’s supported browsers using the browserslist field. When this field is declared, Parcel will transpile your code accordingly to ensure compatibility with your supported browsers.
+
+1. parcel reads project folder/index.html looks for `<script>` tag, sees its .ts (typescript)
+
+- NOTE: add type='module' to `<script>` tag ie. `<script type="module" src="./src/index.ts"></script>`
+
+2. converts the .ts to .js
+3. then updates the `<script>` to make use of the coverted .js instead of .ts
+
+#### running the app
+
+- NOTE: package.json has scripts: but this is not working...
+- NOTE: Parcel has a development server built in, which will automatically rebuild your app as you make changes. To start it, run the parcel CLI pointing to your entry file
+- FIX: use commandline and run parcel pointing to starting file (from project directory): `parcel index.html`
+
+#### V1 (DEPRECATED)
+
+- NOTE: v1 is no longer maintained -> `https://v2.parceljs.org/getting-started/migration`
+
+  - FIX: uninstall: `npm uninstall parcel-bundler` (uninstall if you installed parcel-bundler)
+
+#### V2
+
+- FIX: install: "parcel": "^2.0.0"
+- FIX: `.cache` folder replaced with `.parcel-cache` (add both to .gitignore)
+- NOTE: Parcel 2 matches browser behavior: classic `<script>` tags do not support imports or exports. Use a `<script type="module">` element to reference a module.
+- `Server running at http://localhost:1234`
 
 ### 55. Project Structure (3min)
 
