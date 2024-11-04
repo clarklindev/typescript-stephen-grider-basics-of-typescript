@@ -697,8 +697,74 @@ const importantDates: (Date | string)[] = [new Date()];
 ## Section 06 - Tuples in Typescript
 
 36. Tuples in Typescript (4min)
+
+- with tuple, the annotation describes the type of the properties and order of the values
+- difference -> array like structure, BUT.. each element represents some property of a record
+- array example: `[brown , true, 40]` there is loss of information because we dont know what the properties are associated with which values - so order is important and needs to be remembered
+
+### type alias
+
+- you can replace tuple structure by defining a type alias
+
+```ts
+type Drink = [string, boolean, number]; //type alias
+```
+
 37. Tuples in Action (5min)
+
+- eg. plain object
+
+```ts
+//eg. plain object
+const drink = {
+  color: 'brown',
+  carbonated: true,
+  sugar: 40,
+};
+```
+
+- eg. array
+
+```ts
+//array
+const pepsi = ['brown', true, 40];
+```
+
+- same same
+  - `const pepsi: [string, boolean, number];`
+  - `const pepsi: Drink;`
+
+```ts
+//type alias
+type Drink = [string, boolean, number]; //type alias
+
+//tuple
+const pepsi: [string, boolean, number] = ['brown', true, 40];
+
+//using type alias
+const pepsi: Drink = ['brown', true, 40];
+const sprite: Drink = ['clear', true, 40];
+const tea: Drink = ['brown', false, 0];
+```
+
 38. Why Tuples? (3min)
+
+- NOTE: prefer using objects because object keys have meaning whereas tuples only define the value type and order
+- wont use it often... maybe with .csv file
+- wont use it because even with the type defined in a tuple (order of values in tuple, the type has no meaning),
+
+```ts
+const carSpecs: [number, number] = [400, 3354];
+```
+
+- using an object instead because there are meaningful 'keys'
+
+```ts
+const carStats = {
+  horsePower: 400,
+  weight: 3345,
+};
+```
 
 ## Section 07 - The all important interface
 
@@ -715,13 +781,6 @@ const importantDates: (Date | string)[] = [new Date()];
 - TODO FEATURE: give type annotations to function parameters ( parameters are what you can pass to a function and arguments are actually values passed in a function)
 - TODO FEATURE: Tuples (mutiple values(with different type - ONLY the values) for each entry in array) - no attributes, order is critical
 - TODO FEATURE: Type alias
-
-```ts
-type Drink = [string, boolean, number];
-
-//same as
-const pepsi: Drink;
-```
 
 ```ts
 const logNumber: (i: number) => void = (i: number) => {};
