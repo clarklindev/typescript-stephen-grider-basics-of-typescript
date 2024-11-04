@@ -660,9 +660,39 @@ const {
 ## Section 05 - Mastering Typed Arrays
 
 32. Arrays in Typescript (5min)
+
+- typed arrays - arrays where each element has a consistent type
+- type inference looking at values stored
+- initializing empty arrays -> add annotation
+
+```ts
+const carMakers: string[] = ['ford', 'toyota', 'chevy']; //with annotation, but without the annotation there is auto type inference
+```
+
+- 2d array (type annotation is optional)
+
+```tS
+const carsByMake:string[][] = [['ford'], ['mazda'], ['bmw']];
+```
+
 33. Why Typed Arrays? (5min)
+
+- type inference when pulling value out of array
+- adding incompatible values
+- Array has helper functions
+- flexible (arrays can contain multiple different types)
+
 34. Multiple Types in Arrays (3min)
+
+- override type inference by adding annotation (eg. when initializing with empty array)
+
+```ts
+const importantDates: (Date | string)[] = [new Date()];
+```
+
 35. When to Use Typed Arrays (1min)
+
+- when to use? -> when you have a collection of records with some arbitary sort order
 
 ## Section 06 - Tuples in Typescript
 
