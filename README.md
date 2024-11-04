@@ -926,11 +926,188 @@ printSummary(drink);
 ## Section 08 - Building functionality with classes
 
 46. Classes (4min)
+
+- class is a blueprint -> to create an object with some fields (values) and methods (functions) to represent an idea
+- How we will learn classes
+
+1. learn about class methods (function)
+
+   - then you can call eg.`vehicle.drive();`
+
+2. learn about class fields (values)
+
+```ts
+class Vehicle {
+  drive(): void {
+    console.log('hello');
+  }
+
+  honk(): void {
+    consol.log('honk');
+  }
+}
+
+const vehicle = new Vehicle();
+vehicle.drive();
+vehicle.honk();
+```
+
 47. Basic Inheritance (3min)
-48. Instance Method Modifiers (7min)
+
+- you can extend a class
+- you can redefine methods in a class that extends another class that has a method with same name
+
+```ts
+class Vehicle {
+  drive(): void {
+    console.log('hello');
+  }
+
+  honk(): void {
+    consol.log('honk');
+  }
+}
+
+class Car extends Vehicle {
+  drive(): void {
+    console.log('vroom');
+  }
+}
+
+const car = new Car();
+//car has access to all 'Vehicle' methods
+car.drive(); //prints 'vroom'
+```
+
+48. class method modifiers (7min)
+
+- keywords you can place on methods -> `public` (default), `private`, `protected`
+- goal is to restrict access to functions and variables (FOR OTHER DEVELOPERS)
+  - public (DEFAULT) -> method can be called anywhere, anytime
+  - private -> only be called by other methods in this class (NOT from the instance)
+  - protected -> can be called by other methods in this class OR by other methods in child classes.
+- NOTE: on overriding modifier: if parent class has a modifier, you cannot change the modifier in child class.
+
+```ts
+class Vehicle {
+  public drive(): void {
+    console.log('hello');
+  }
+
+  public honk(): void {
+    consol.log('honk');
+  }
+}
+
+class Car extends Vehicle {
+  private drive(): void {
+    console.log('vroom');
+  }
+
+  startDriving(): void {
+    this.drive();
+  }
+}
+
+const car = new Car();
+car.drive();
+car.honk();
+```
+
+- NOTE: if Car class has drive() method set-up as 'private', it cannot be accessed via the instance, only from internally within the class eg. `startDriving()`
+
+```ts
+class Car {
+  private drive() {}
+
+  startDriving() {
+    this.drive();
+  }
+}
+
+const car = new Car();
+// car.drive();  //error
+car.startDriving(); //ok
+car.honk();
+```
+
 49. Fields in Classes (6min)
+
+- adding fields to classes
+- traditionally you have to initialize variables in classes with a value and if you want to pass a value in, you define a constructor
+- you either initialize variable on same line in class OR inside constructor BUT best is to just define the access modifier with the prop value/type and remove the variable declaration and initializing inside the constructor
+- simple syntax where instance variable is also created and assigned when value passed in:
+- passed in constructor prop value of 'private', cant access from outside the class (ie. cant access from instance )
+- passed in constructor prop value of 'protected', cant access from outside the class BUT can from within child classes
+
+```ts
+class Vehicle {
+  // color: string;
+  // constructor(color: string) {
+  //   this.color = color;
+  // }
+
+  constructor(public color: string) {} //simple syntax where instance variable is also created and assigned when value passed in
+
+  public drive(): void {
+    console.log('hello');
+  }
+
+  public honk(): void {
+    console.log('honk');
+  }
+}
+```
+
 50. Fields with Inheritance (4min)
+
+- NOTE: parent class receives 'color', so child class must pass this in
+- NOTE: WHEN CHILD CLASS DOES NOT HAVE CONSTRUCTOR -> `class Car` calls the parent's constructor
+- NOTE: WHEN CHILD CLASS HAS CONSTRUCTOR it needs to abide by its own constructor AND parent constructor via 'super()'
+  - and pass in required props to super() for the parent
+- NOTE: because parent constructor has modifier specified, the child class DOES NOT define a modifier
+  - you do not define modifier in child class because you want to use the parent's variable
+
+```ts
+class Vehicle {
+  // color: string;
+  // constructor(color: string) {
+  //   this.color = color;
+  // }
+
+  constructor(public color: string) {} //simple syntax where instance variable is also created and assigned when value passed in
+
+  public drive(): void {
+    console.log('hello');
+  }
+
+  public honk(): void {
+    console.log('honk');
+  }
+}
+
+class Car extends Vehicle {
+  constructor(public wheels: number, color: string) {
+    super(color);
+  }
+
+  private drive(): void {
+    console.log('vroom');
+  }
+
+  startDriving(): void {
+    this.drive();
+  }
+}
+
+const car = new Car(4, 'red');
+car.drive();
+car.honk();
+```
+
 51. Where to Use Classes (1min)
+
+- Classes allow strong code reuse
 
 ---
 
