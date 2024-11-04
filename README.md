@@ -769,18 +769,172 @@ const carStats = {
 ## Section 07 - The all important interface
 
 39. Interfaces (1min)
+
+- create a new type describing the property names and value types of an object
+- ie. creating a new type (a custom type just like 'string' or 'number')
+
 40. Long Type Annotations (5min)
+
+- this is just an example of using a long type annotation (not using interface)
+- wont use this way, because everytime you have a function receiving `oldCivic` you have to type out the long annotation type
+
+```ts
+const oldCivic = {
+  name: 'civic',
+  year: 2000,
+  broken: true,
+};
+
+const printVehicle = (vehicle: {
+  name: string;
+  year: number;
+  broken: boolean;
+}): void => {
+  console.log(
+    `name: ${vehicle.name}, year: ${vehicle.year}, broken: ${vehicle.broken}`
+  );
+};
+```
+
 41. Fixing Long Annotations with Interfaces (5min)
+
+- adding an interface
+- generic name for interface (capital case)
+
+```ts
+interface Vehicle {
+  name: string;
+  year: number;
+  broken: boolean;
+}
+
+const oldCivic = {
+  name: 'civic',
+  year: 2000,
+  broken: true,
+};
+
+const printVehicle = (vehicle: Vehicle): void => {
+  console.log(
+    `name: ${vehicle.name}, year: ${vehicle.year}, broken: ${vehicle.broken}`
+  );
+};
+
+printVehicle(oldCivic);
+```
+
 42. Syntax Around Interfaces (4min)
+
+- interfaces can have properties of complex type eg. Date
+- interfaces can have functions:
+
+```ts
+//interface with function
+interface Vehicle{
+  //...
+  year: Date; //complex type
+  summary(): string {
+    return `name is: ${this.name}`;
+  };
+}
+```
+
+- full example
+
+```ts
+interface Vehicle {
+  name: string;
+  year: Date; //complex type
+  broken: boolean;
+  summary(): string; //function type
+}
+
+const oldCivic = {
+  name: 'civic',
+  year: new Date(),
+  broken: true,
+  summary(): string {
+    return `name is: ${this.name}`;
+  },
+};
+
+const printVehicle = (vehicle: Vehicle): void => {
+  console.log(vehile.summary());
+};
+
+console.log(oldCivic.summary());
+```
+
 43. Functions in Interfaces (5min)
+
+- when typescript tries to decide if an object is of a type, the object can have more properties than the interface requires BUT not less
+- FIX -> with example below, we change interface `Vehicle` to `Reportable` because technically, `printVehicle` function only needs to receive a type with summary()
+- FIX -> the function `PrintVehicle` does not need to be called `printVehicle` anymore, it can just be generic `printSummary`
+
+```ts
+interface Reportable {
+  summary(): string; //function type
+}
+
+const printSummary = (item: Reportable): void => {
+  console.log(item.summary());
+};
+```
+
 44. Code Reuse with Interfaces (4min)
+
+- we made the code more generic to be reusable
+- NOTE: civic and drink both have `summary()` function so they are both of type `Reportable`
+  - meaning both objects can use `printSummary`
+- as long as these objects abide by an interface, we can create generic functions that receive objects that satisfy the interface type
+- the function can be used with any object that satisfies the `Reportable` interface
+
+```ts
+const drink = {
+  color: 'brown',
+  carbonated: true,
+  sugar: 40
+  summary():string{
+    return `my drink has ${sugar} grams of sugar`
+  }
+}
+
+const printSummary = (item: Reportable): void => {
+  console.log(item.summary());
+};
+
+printSummary(oldCivic);
+printSummary(drink);
+
+```
+
 45. General Plan with Interfaces (3min)
 
-- TODO FEATURE: Make interfaces for axios response.data objects
-- TODO FEATURE: make use of 'as TYPE' to type some data to an interface
-- TODO FEATURE: give type annotations to function parameters ( parameters are what you can pass to a function and arguments are actually values passed in a function)
-- TODO FEATURE: Tuples (mutiple values(with different type - ONLY the values) for each entry in array) - no attributes, order is critical
-- TODO FEATURE: Type alias
+![interfaces-general-plan-with-interaces](exercise_files/Section-07-interfaces-general-plan-with-interaces.png)
+
+- using interfaces for gatekeeping/compatible to functions is way we get reusability with typescript.
+
+  - ie. create functions that are typed with interfaces
+  - make objects satisfy the interface to use the generic function
+  - make use of 'as TYPE' to type some data to an interface
+  - Make interfaces for axios response.data objects
+  - give type annotations to function parameters ( parameters are what you can pass to a function and arguments
+    are actually values passed in a function)
+
+---
+
+## Section 08 - Building functionality with classes
+
+46. Classes (4min)
+47. Basic Inheritance (3min)
+48. Instance Method Modifiers (7min)
+49. Fields in Classes (6min)
+50. Fields with Inheritance (4min)
+51. Where to Use Classes (1min)
+
+---
+
+## Section 09 - Design Patterns with Typescript
 
 ```ts
 const logNumber: (i: number) => void = (i: number) => {};
@@ -797,17 +951,6 @@ axios.get(url).then((response) => {
   const todo = response.data as Todo; //TYPESCRIPT: as interface
 });
 ```
-
-## Section 08 - Building functionality with classes
-
-46. Classes (4min)
-47. Basic Inheritance (3min)
-48. Instance Method Modifiers (7min)
-49. Fields in Classes (6min)
-50. Fields with Inheritance (4min)
-51. Where to Use Classes (1min)
-
-## Section 09 - Design Patterns with Typescript
 
 52. Updated Parcel Instructions (1min)
 53. App Overview (3min)
