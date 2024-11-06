@@ -1257,6 +1257,7 @@ export class User implements Mappable {
 - we are responsible for object initialization (in constructor) and properties inside eg. location = {}
 
 ```ts
+//src/User.ts
 export class User {
   name: string;
   location: {
@@ -1283,8 +1284,54 @@ export class User {
 ```ts
 //index.ts
 import { User } from './User';
+
+const user = new User();
+console.log(user);
+
+const map = new CustomMap('map');
+map.addMarker(user);
+//...
+```
+
+### 61. Defining a Company (5min)
+
+```ts
+//src/Company.ts
+import faker from 'faker';
+import { Mappable } from './CustomMap';
+
+export class Company implements Mappable {
+  name: string;
+  catchPhrase: string;
+  location: {
+    lat: number;
+    lng: number;
+  };
+
+  constructor() {
+    this.name = faker.company.companyName();
+    this.catchPhrase = faker.company.catchPhrase();
+    this.location = {
+      lat: parseFloat(faker.address.latitude()),
+      lng: parseFloat(faker.address.longitude()),
+    };
+  }
+
+  markerContent(): string {
+    return `
+    <h1>Company Name: ${this.name}</h1>
+    <h3>CatchPhrase ${this.catchPhrase}</h3>
+    `;
+  }
+}
+```
+
+```ts
+//index.ts
+import { User } from './User';
 import { Company } from './Company';
-import { CustomMap } from './CustomMap';
+
+//...
 
 const user = new User();
 console.log(user);
@@ -1292,12 +1339,8 @@ console.log(user);
 const company = new Company();
 console.log(company);
 
-const map = new CustomMap('map');
-map.addMarker(user);
-map.addMarker(company);
+//...
 ```
-
-### 61. Defining a Company (5min)
 
 ### 62. Note on Generating an API Key (1min)
 
