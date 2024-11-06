@@ -1251,7 +1251,51 @@ export class User implements Mappable {
 
 ### 59. Using Type Definition Files (6min)
 
+- with the type installed, on the import if you hold down CTRL (windows), you can click on the type definition class (index.d.ts)
+- no implemention only definition types
+- with class definition: `class User{ location:{lat:number, lng:number}}`
+- we are responsible for object initialization (in constructor) and properties inside eg. location = {}
+
+```ts
+export class User {
+  name: string;
+  location: {
+    lat: number;
+    lng: number;
+  };
+
+  constructor() {
+    this.name = faker.name.firstName();
+    this.location = {
+      lat: parseFloat(faker.address.latitude()),
+      lng: parseFloat(faker.address.longitude()),
+    };
+  }
+}
+```
+
 ### 60. Export Statements in Typescript (5min)
+
+- add `export` to class then import to use
+- in typescript, convention is to not use `export default` keyword
+- always use import with `import {} from` syntax
+
+```ts
+//index.ts
+import { User } from './User';
+import { Company } from './Company';
+import { CustomMap } from './CustomMap';
+
+const user = new User();
+console.log(user);
+
+const company = new Company();
+console.log(company);
+
+const map = new CustomMap('map');
+map.addMarker(user);
+map.addMarker(company);
+```
 
 ### 61. Defining a Company (5min)
 
