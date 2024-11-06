@@ -1126,6 +1126,8 @@ car.honk();
 
 ---
 
+---
+
 ## Section 09 - Design Patterns with Typescript
 
 ### 52. Updated Parcel Instructions (1min)
@@ -1180,11 +1182,72 @@ npx parcel index.html
 
 ### 55. Project Structure (3min)
 
+![section09-design-patterns-with-typescript-project-structure](exercise_files/section09-design-patterns-with-typescript-project-structure.png)
+
+- index.ts
+  - User.ts
+  - Company.ts
+  - Map.ts
+
 ### 56. IMPORTANT Info About Faker Installation (1min)
+
+- [faker.js](https://github.com/faker-js/faker)
+- https://fakerjs.dev/
+- currently v9
+- as of faker v6 typscript support is native and does not require installing of @types
+- To use this library, you can install it by running:
+
+```cmd
+pnpm i @faker-js/faker --save-dev
+```
+
+### faker usage
+
+```ts
+import { faker } from '@faker-js/faker';
+```
 
 ### 57. Generating Random Data (5min)
 
+```ts
+//src/User.ts
+// import faker from 'faker';
+import { faker } from '@faker-js/faker'; //forked version of faker import syntax
+
+import { Mappable } from './CustomMap';
+
+export class User implements Mappable {
+  name: string;
+  location: {
+    lat: number;
+    lng: number;
+  };
+
+  constructor() {
+    this.name = faker.name.firstName();
+    this.location = {
+      lat: parseFloat(faker.address.latitude()),
+      lng: parseFloat(faker.address.longitude()),
+
+  }
+
+  markerContent(): string {
+    return `user Name: ${this.name}`;
+  }
+}
+```
+
 ### 58. Type Definition Files (5min)
+
+- if you see the error `Could not find the declaration module 'faker'`
+  - this happens because in your project you can import and use js libraries, but if your project is a typescript project, then it wants to know types for functions/variables. but if the library is a js library, typescript wont know/how to figure out the types..
+- FIX:
+  - type definition files tell typescript function available inside library
+  - can be included with library
+    ![type definition files](exercise_files/section09-design-patterns-with-typescript-type-definition-files.png)
+- popular libraries have type definition files already created by [definitelytyped](github.com/definitelyTyped) that start with:
+- `pnpm i @types/{library name}`
+- start project `parcel index.html`
 
 ### 59. Using Type Definition Files (6min)
 
