@@ -1141,14 +1141,14 @@ npx parcel index.html
 
 ### 53. App Overview (3min)
 
-![section09-design-patterns-with-typescript-app-overview](exercise_files/section09-design-patterns-with-typescript-app-overview.png)
+![section09-design-patterns-with-typescript-53.app-overview](exercise_files/section09-design-patterns-with-typescript-53.app-overview.png)
 
 - project folder: `/tutorial-stephengrider-typescript-02-designpatterns-googlemaps/`
 - TODO: web app (browser) randomly generate (User OR Company) and show it on google map
 
 ### 54. Bundling with Parcel (5min)
 
-![section09-design-patterns-with-typescript-parcel.png](exercise_files/section09-design-patterns-with-typescript-parcel.png)
+![section09-design-patterns-with-typescript-54.parcel.png](exercise_files/section09-design-patterns-with-typescript-54.parcel.png)
 
 - `npm i -g parcel` (note: install globally)
 - parcel will help get typscript working in browser (instead of `ts-node`)
@@ -1182,7 +1182,8 @@ npx parcel index.html
 
 ### 55. Project Structure (3min)
 
-![section09-design-patterns-with-typescript-project-structure](exercise_files/section09-design-patterns-with-typescript-project-structure.png)
+- folder: `tutorial-stephengrider-typescript-02-designpatterns-googlemaps/`
+  ![section09-design-patterns-with-typescript-55.project-structure](exercise_files/section09-design-patterns-with-typescript-55.project-structure.png)
 
 - index.ts
   - User.ts
@@ -1208,6 +1209,8 @@ import { faker } from '@faker-js/faker';
 ```
 
 ### 57. Generating Random Data (5min)
+
+- folder: `tutorial-stephengrider-typescript-02-designpatterns-googlemaps/`
 
 ```ts
 //src/User.ts
@@ -1244,12 +1247,16 @@ export class User implements Mappable {
 - FIX:
   - type definition files tell typescript function available inside library
   - can be included with library
-    ![type definition files](exercise_files/section09-design-patterns-with-typescript-type-definition-files.png)
+
+![58. type definition files](exercise_files/section09-design-patterns-with-typescript-58.type-definition-files.png)
+
 - popular libraries have type definition files already created by [definitelytyped](github.com/definitelyTyped) that start with:
 - `pnpm i @types/{library name}`
 - start project `parcel index.html`
 
 ### 59. Using Type Definition Files (6min)
+
+- folder: `tutorial-stephengrider-typescript-02-designpatterns-googlemaps/`
 
 - with the type installed, on the import if you hold down CTRL (windows), you can click on the type definition class (index.d.ts)
 - no implemention only definition types
@@ -1280,6 +1287,7 @@ export class User {
 - add `export` to class then import to use
 - in typescript, convention is to not use `export default` keyword
 - always use import with `import {} from` syntax
+- folder: `tutorial-stephengrider-typescript-02-designpatterns-googlemaps/`
 
 ```ts
 //index.ts
@@ -1294,6 +1302,8 @@ map.addMarker(user);
 ```
 
 ### 61. Defining a Company (5min)
+
+- folder: `tutorial-stephengrider-typescript-02-designpatterns-googlemaps/`
 
 ```ts
 //src/Company.ts
@@ -1344,15 +1354,118 @@ console.log(company);
 
 ### 62. Note on Generating an API Key (1min)
 
+- folder: `tutorial-stephengrider-typescript-02-designpatterns-googlemaps/`
+
+- next video shows how to hook up Google Maps by generating an API key on the Google Developer's Console
+- Creating an API key requires a Google Developer account with billing enabled.
+- This means you have to have a credit card tied to your Google account.
+- If you do not have a credit card tied to your Google account, or do not want to add one, then please use this pre-generated API key instead:
+  - NOTE: key is given from course -> AIzaSyBNLrJhOMz6idD05pzfn5lhA-TAw-mAZCU
+
 ### 63. Adding Google Maps Support (8min)
+
+![section09-design-patterns-with-typescript-63.adding-googlemaps](exercise_files/section09-design-patterns-with-typescript-63.adding-googlemaps.png)
+
+#### steps
+
+1. create google project [google developers console](https://console.developers.google.com)
+2. enable google maps
+
+- navigation menu (top-left) -> api + services -> library -> maps api -> `maps javascript api` -> enable
+
+3. generate api key
+
+- navigation menu (top-left) -> api + services -> credentials -> create credentials
+
+4. add google maps script tag to html (easiest way)
+
+- the url is `https://maps.googleapis.com/maps/api/js?key=`
+
+```html
+<!-- index.html -->
+<html>
+  <body>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNLrJhOMz6idD05pzfn5lhA-TAw-mAZCU&callback=Function.prototype"></script>
+    <script type="module" src="./src/index.ts"></script>
+  </body>
+</html>
+```
+
+5. check that it works
+
+#### running the app
+
+- `parcel index.html`
+- browser dev-tools -> network -> filter (js) -> line `js?` should have status 200
 
 ### 64. Required Update for New @types Library (1min)
 
+- `@types/googlemaps` has been deprecated
+- UPDATE: install `npm install @types/google.maps`
+
+- you will still see a TS error in your code editor: `Cannot find name 'google'.ts(2304)`
+- FIX: the very first line in the index.ts file, you will need to add a [triple slash directive](https://developers.google.com/maps/documentation/javascript/using-typescript#Module_Import):
+
+```ts
+//index.ts
+/// <reference types="@types/google.maps" />
+```
+
 ### 65. Google Maps Integration (4min)
+
+- when script is added directly to html instead of imports, it is added as a global variable.
+- DEPRECATED: we need to add @types `@types/googlemaps`
+- UPDATE: type definition file: `@types/google.maps`
+
+#### testing type definition
+
+- you can use the type definition file to understand how google maps sdk works (CTRL + click on type definition import)
+- TODO: in a project file, type `google` then hover over and CTRL + click
+- NOTE: in the type definition `declare namespace google.maps {}` means we have access to a global variable `google`
+- browser console: should have access to `google`
+
+```ts
+declare namespace google.maps {}
+```
+
+#### fold code in vscode
+
+- folds code to just show function names
+- TODO: `CTRL + SHIFT + P -> >fold level -> 2`
+
+```ts
+//src/CustomMap.ts
+export class CustomMap {
+  private googleMap: google.maps.Map;
+
+  constructor(divId: string) {
+    this.googleMap = new google.maps.Map(
+      document.getElementById(divId) as HTMLElement,
+      {
+        zoom: 1,
+        center: {
+          lat: 0,
+          lng: 0,
+        },
+        draggable: false,
+      }
+    );
+  }
+  //...
+}
+```
 
 ### 66. Exploring Type Definition Files (3min)
 
+- TODO: showing User and Company as markers on the google map
+-
+
 ### 67. Hiding Functionality (6min)
+
+![section09-design-patterns-with-typescript-67.hiding-functionality](exercise_files/section09-design-patterns-with-typescript-67.hiding-functionality.png)
+
+- we have been given access to the googlemaps api via `google.maps.Map` but we only need a small set of features it provides
+- TODO: restrict exposed methods of google.maps.Map api by creating our own class `CustomMap` with limited features available to other developers when using class
 
 ### 68. Why Use Private Modifiers? Here's Why (8min)
 
