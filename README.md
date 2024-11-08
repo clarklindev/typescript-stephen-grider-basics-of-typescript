@@ -1469,7 +1469,121 @@ export class CustomMap {
 
 ### 68. Why Use Private Modifiers? Here's Why (8min)
 
+![section09-design-patterns-with-typescript-68.private-modifiers.png](exercise_files/section09-design-patterns-with-typescript-68.private-modifiers.png)
+
+- created CustomMap class which exposes google maps
+- NOTE: the `private googleMap` modifier
+- NOTE: we pass the id inside the constructor
+
+```ts
+//src/CustomMap.ts
+export interface Mappable {
+  location: {
+    lat: number;
+    lng: number;
+  };
+  markerContent(): string;
+}
+
+export class CustomMap {
+  private googleMap: google.maps.Map;
+
+  constructor(divId: string) {
+    this.googleMap = new google.maps.Map(
+      document.getElementById(divId) as HTMLElement,
+      {
+        zoom: 1,
+        center: {
+          lat: 0,
+          lng: 0,
+        },
+        draggable: false,
+      }
+    );
+  }
+
+  addMarker(mappable: Mappable): void {
+    const marker = new google.maps.Marker({
+      map: this.googleMap,
+      position: {
+        lat: mappable.location.lat,
+        lng: mappable.location.lng,
+      },
+    });
+
+    marker.addListener('click', () => {
+      const infoWindow = new google.maps.InfoWindow({
+        content: mappable.markerContent(),
+      });
+
+      infoWindow.open(this.googleMap, marker);
+    });
+  }
+}
+```
+
+- then later in index.ts, we access it like this
+
+```ts
+const map = new CustomMap('map');
+map.addMarker(user);
+map.addMarker(company);
+```
+
 ### 69. Adding Markers (9min)
+
+- 2 solutions -> bad vs good solution
+
+#### BAD code method
+
+- bad code -> methods to create marker
+- NB: when importing a Class, you can also reference it as a type
+- taking look at type definition file
+- NOTE: Marker() takes in an object with map property which references the `googleMap` property from the class: `new google.maps.Marker({ map: this.googleMap});`
+- NOTE: if you get a CustomMap.ts error like `Cannot find namespace 'google'.ts(2503)`
+- FIX: `npm install --save-dev @types/google.maps`
+- Update project root: `tsconfig.json`
+
+```ts
+{
+  "compilerOptions": {
+    "types": ["google.maps"],
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  }
+}
+```
+
+```ts
+//src/CustomMaps.ts
+import { User } from './User';
+import { Company } from './Company';
+
+class CustomMap {
+
+  private googleMap: google.maps.Map;
+
+  constructor(){
+    this.googleMap = //...
+  }
+
+  // NOTE: THIS IS THE BAD CODE
+  addUserMarker(user: User): void {
+    new google.maps.Marker({
+      map: this.googleMap,
+      position:{
+        lat://...
+        lng://...
+      }
+    });
+  }
+  addCompanyMarker(company: Company): void {
+
+  }
+}
+```
 
 ### 70. Duplicate Code (3min)
 
