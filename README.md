@@ -1475,6 +1475,8 @@ export class CustomMap {
 - NOTE: the `private googleMap` modifier
 - NOTE: we pass the id inside the constructor
 
+#### good implementation
+
 ```ts
 //src/CustomMap.ts
 export interface Mappable {
@@ -1536,6 +1538,7 @@ map.addMarker(company);
 
 #### BAD code method
 
+- you have just seen how to do it the correct way, this is the BAD code method:
 - bad code -> methods to create marker
 - NB: when importing a Class, you can also reference it as a type
 - taking look at type definition file
@@ -1543,18 +1546,6 @@ map.addMarker(company);
 - NOTE: if you get a CustomMap.ts error like `Cannot find namespace 'google'.ts(2503)`
 - FIX: `npm install --save-dev @types/google.maps`
 - Update project root: `tsconfig.json`
-
-```ts
-{
-  "compilerOptions": {
-    "types": ["google.maps"],
-    "moduleResolution": "node",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true
-  }
-}
-```
 
 ```ts
 //src/CustomMaps.ts
@@ -1587,18 +1578,180 @@ class CustomMap {
 
 ### 70. Duplicate Code (3min)
 
+- Company class follows same format as User (above)
+
+```ts
+//src/index.ts
+
+// good METHOD
+const user = new User();
+const company = new Company();
+const map = new CustomMap('map');
+
+map.addMarker(user);
+map.addMarker(company);
+
+//bad METHOD
+const user = new User();
+const company = new Company();
+const map = new CustomMap('map');
+
+map.addUserMarker(user);
+map.addCompanyMarker(company);
+```
+
 ### 71. One Possible Solution (7min)
+
+- create a more generic function name `addUserMarker` becomes `addMarker`
+- change the received prop from `user` to more generic `mappable`
+- NOTE: with `User | Company`, it is checking all properties that exist on both types
+- the downside is that only common properties exist and have to add import and | syntax (tight coupling)
+
+```ts
+// CustomMap.ts
+addMarker(mappable: User | Company):void{
+  new google.maps.Marker({
+    map: this.googleMap,
+    position:{
+      lat: mappable.location.lat,
+      lng: mappable.location.lng
+    }
+  });
+}
+```
 
 ### 72. Restricting Access with Interfaces (6min)
 
+- add an interface `Mappable`
+- classes implementing `Mappable` have to satisfy the properties listed in `Mappable`
+
+```ts
+//src/CustomMap.ts
+export interface Mappable {
+  location: {
+    lat: number;
+    lng: number;
+  };
+  markerContent(): string;
+}
+```
+
+- receives `Mappable` type
+
+```ts
+// CustomMap.ts
+addMarker(mappable: Mappable):void{
+  new google.maps.Marker({
+    map: this.googleMap,
+    position:{
+      lat: mappable.location.lat,
+      lng: mappable.location.lng
+    }
+  });
+}
+```
+
 ### 73. Implicit Type Checks (3min)
+
+- addMarker() receives type Mappable, and typescript just checks that whatever is passed in must implement `Mappable` ie it has the properties which satisfy `Mappable`
+
+```ts
+const map = new CustomMap('map');
+
+map.addMarker(user);
+map.addMarker(company);
+```
 
 ### 74. Showing Popup Windows (7min)
 
+- added to `addMarker()` and ensure marker gets a 'click' listener
+- we only create the info window when the marker is clicked
+
+```ts
+export class CustomMap {
+  //...
+
+  addMarker(mappable: Mappable): void {
+    const marker = new google.maps.Marker({
+      map: this.googleMap,
+      position: {
+        lat: mappable.location.lat,
+        lng: mappable.location.lng,
+      },
+    });
+
+    marker.addListener('click', () => {
+      const infoWindow = new google.maps.InfoWindow({
+        content: mappable.markerContent(),
+      });
+
+      infoWindow.open(this.googleMap, marker);
+    });
+  }
+}
+```
+
 ### 75. Updating Interface Definitions (7min)
+
+- `Mappable` should be updated with a `markerContent` function
+- the object passed in to `Mappable` should have a `markerContent` function
+
+```ts
+//src/CustomMap.ts
+export interface Mappable {
+  location: {
+    lat: number;
+    lng: number;
+  };
+  markerContent(): string;
+}
+```
+
+```ts
+//src/User.ts
+export class User implements Mappable {
+  //...
+  markerContent(): string {
+    return `user Name: ${this.name}`;
+  }
+}
+```
+
+```ts
+//src/Company.ts
+export class Company implements Mappable {
+  //...
+  markerContent(): string {
+    return `
+    <div>
+      <h1>Company Name: ${this.name}</h1>
+      <p>Catchphrase: ${this.catchPhrase}</p>
+    </div>
+    `;
+  }
+}
+```
 
 ### 76. Optional Implements Clauses (6min)
 
+- classes implementing interfaces should get `implements` keyword
+- ensure Mappable is exported
+- FIX: timport Mappable in User and after class definition add `implements Mappable`
+  -fix allows typescript to let us know when we dont fully implement the interface
+
+```ts
+//User
+import { Mappable } from './CustomMap';
+class User implements Mappable {}
+```
+
 ### 77. App Wrapup (8min)
+
+- wrap up! - just watch this video for refresher
+- interface definitions -> they describe how to work with the class
+- instead of creating an object type to work a class Definition, we say it should implement the interface
+  - code reuse + low coupling between classes in the app
+
+![section09-design-patterns-with-typescript-77.app-wrapup.png](exercise_files/section09-design-patterns-with-typescript-77.app-wrapup.png)
 
 ---
